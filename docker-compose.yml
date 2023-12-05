@@ -1,0 +1,58 @@
+# if want use kong to database instead of db-less then un comment and set comment KONG_DATABASE: "off"
+# and un comment the library relate to kong
+# default kong gate use db-less by cache of the kong gate
+
+
+version: '3.4'
+
+services:
+
+  elasticsearch:
+   container_name: elasticsearch
+   build: ./deploy/elk/elasticsearch/
+   image: tunnm/docker-es-cococ-tokenizer:7.12.1
+   volumes:
+     - ./deploy/elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+   ports:
+     - "9200:9200"
+     - "9300:9300"
+   environment:
+     ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  logstash:
+   container_name: logstash
+   restart: always
+   build:
+     context: deploy/elk/logstash/
+   volumes:
+     - ./deploy/elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+     - ./deploy/elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
+   ports:
+     - "8686:8080"
+   environment:
+     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+   depends_on:
+     - elasticsearch
+
+  # kibana:
+  #  container_name: kibana
+  #  build: ./deploy/elk/kibana/
+  #  volumes:
+  #    - ./deploy/elk/kibana/config/:/usr/share/kibana/config:ro
+  #  ports:
+  #    - "5601:5601"
+  #  depends_on:
+  #    - elasticsearch
+
+
+
+networks:
+ kong-net:
+   name: kong-net
+   driver: bridge
+        
+    
+
+        #  vào properties của dự án rồi bào build==> post build ==> điền xcopy /y "$(TargetDir)*.dll" ".\Core\"
+        #  "$(TargetDir)*.dll" : tất cả fill dll
+        # ".\Core\" : thư mục lưu
