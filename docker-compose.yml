@@ -25,6 +25,10 @@ services:
      - ./deploy/elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
    ports:
      - "8686:8080"
+     - 5044:5044
+     - 50000:50000/tcp
+     - 50000:50000/udp
+     - 9600:9600
    environment:
      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
 
