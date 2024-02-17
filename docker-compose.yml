@@ -79,7 +79,7 @@ services:
     - elastic
   
   metricbeat:
-    image: docker.elastic.co/beats/metricbeat:${ELASTIC_VERSION:-7.9.1}
+    image: docker.elastic.co/beats/metricbeat:8.7.0
     restart: on-failure
     hostname: "{{.Node.Hostname}}-metricbeat"
     user: root
