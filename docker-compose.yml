@@ -96,8 +96,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - metricbeat:/usr/share/metricbeat/data
     environment:
-      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-node1}
-      - KIBANA_HOST=${KIBANA_HOST:-node1}
+      - ELASTICSEARCH_HOST=http://192.168.3.162:9201
+      - KIBANA_HOST=http://localhost:5601
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
     # disable strict permission checks
