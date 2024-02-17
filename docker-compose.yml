@@ -40,11 +40,13 @@ services:
       server.name: kibana
       server.host: 0.0.0.0
       elasticsearch.hosts: http://192.168.3.162:9201
-      monitoring.ui.container.elasticsearch.enabled: true
+  #    monitoring.ui.container.elasticsearch.enabled: true
       ELASTICSEARCH_URL: http://192.168.3.162:9201
       KIBANA_SYSTEM_PASSWORD: "abc@123"
       xpack.security.encryptionKey: "4JhT9pWqU5Oz7yXmRvF1AeB6lP8dK2cN"
     mem_limit: 1294967296
+    volumes:
+      - ./deploy/elk/kibana/config/:/usr/share/kibana/config:ro
     ports:
       - 5601:5601
     networks:
